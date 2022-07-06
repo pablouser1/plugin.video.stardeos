@@ -8,9 +8,12 @@ Descarga el zip encontrado en la pestaña de "Releases" e instálalo en Kodi.
 ### Funciones agregadas
 * Autorización
 * Reproducción de videos
-* Páginas
+* Paginación
 * Búsqueda
+* Recientes
+* Tendencias
+* Recomendados
+* Siguiendo
 
 ### TODO
-* Implementar las demás funciones de Stardeos
 * Comprobar si el usuario está suscrito antes de intentar reproducir un vídeo de solo suscriptores
