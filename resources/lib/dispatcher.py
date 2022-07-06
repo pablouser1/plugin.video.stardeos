@@ -3,13 +3,16 @@ from .common import params
 class Dispatcher:
     functions = {}
     args = {}
-    def register(self, route: str, args = []):
+    kwargs = {}
+
+    def register(self, route: str, args = [], kwargs = []):
         def add(f):
             if route in self.functions:
                 raise Exception(f'{route} route already exists!')
 
             self.functions[route] = f
             self.args[route] = args
+            self.kwargs[route] = kwargs
             return f
 
         return add
@@ -19,6 +22,7 @@ class Dispatcher:
             raise Exception('Route not valid')
 
         args = []
+        kwargs = {}
         # Add args
         if self.args[route]:
             for arg in self.args[route]:
@@ -27,4 +31,10 @@ class Dispatcher:
 
                 args.append(params[arg])
 
-        self.functions[route](*args)
+        # Add kwargs
+        if self.kwargs[route]:
+            for arg in self.kwargs[route]:
+                if arg in params:
+                    kwargs[arg] = params[arg]
+
+        self.functions[route](*args, **kwargs)

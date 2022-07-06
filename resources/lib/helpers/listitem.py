@@ -27,13 +27,11 @@ def setInfoVideo(url: str, item: dict)-> ListItem:
     list_item.setIsFolder(False)
     return list_item
 
-def setInfoFolder(url: str, item: dict)-> ListItem:
-    list_item = ListItem(item['title'], path=url)
+def setInfoFolder(url: str, title: str)-> ListItem:
+    list_item = ListItem(title, path=url)
     info = {
-        "title": item["title"],
-        "plot": item.get('description')
+        "title": title
     }
     list_item.setInfo('video', info)
-    list_item.setArt(getArt(item))
 
     return list_item

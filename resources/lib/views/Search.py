@@ -1,15 +1,16 @@
 import xbmcgui
 from .Base import Base
-from ..common import api
+from ..common import api, config
 
 class Search(Base):
     """
     Search function
     """
-    path = 'search'
-    has_videos = True
+    pagination = True
 
     def setItems(self):
-        search_term = xbmcgui.Dialog().input('Search', type=xbmcgui.INPUT_ALPHANUM)
-        if search_term:
-            self.items = api.search(search_term)
+        if not self.term:
+            search_term = xbmcgui.Dialog().input(config.getLocalizedString(50012), type=xbmcgui.INPUT_ALPHANUM)
+            if search_term:
+                self.term = search_term
+        self.items = api.search(self.term, self.page)

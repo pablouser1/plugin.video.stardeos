@@ -6,6 +6,10 @@ ROUTES = __enum(
     LOGIN='login',
     LOGOUT='logout',
     SEARCH='search',
-    CATALOG='catalog',
+    TRENDING='trending',
+    LATEST='latest',
+    FOLLOWING='following',
+    RECOMMENDED='recommended',
+    CHANNEL='channel',
     PLAYER='player'
 )

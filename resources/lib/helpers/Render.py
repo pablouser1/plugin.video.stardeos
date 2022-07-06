@@ -3,6 +3,7 @@ import xbmcplugin
 
 from ..common import _HANDLE, _URL, params
 from .listitem import setInfoVideo, setInfoFolder
+from urllib.parse import urlencode
 
 class Render:
     @staticmethod
@@ -23,28 +24,25 @@ class Render:
         return listing
 
     @staticmethod
-    def videos(items: list)-> list:
+    def videos(items: dict, pagination: bool, term: str)-> list:
         """
         Render videos fetched from Stardeos API
         """
         listing = []
-        for item in items['videos']:
-            url = '{0}?menu=player&id={1}'.format(_URL, item["id"])
-            list_item = setInfoVideo(url, item)
-            list_item.setProperty('IsPlayable', 'true')
-            listing.append((url, list_item, False))
-        return listing
-
-    @staticmethod
-    def folders(items: list, menu: str = '')-> list:
-        """
-        Render folders fetched from Stardeos API
-        """
-        listing = []
-        for item in items:
-            url = '{0}?menu={1}&id={2}'.format(_URL, menu, item["id"])
-            list_item = setInfoFolder(url, item)
-            listing.append((url, list_item, True))
+        if items:
+            for item in items['videos']:
+                url = '{0}?menu=player&id={1}'.format(_URL, item["id"])
+                list_item = setInfoVideo(url, item)
+                list_item.setProperty('IsPlayable', 'true')
+                listing.append((url, list_item, False))
+            if pagination:
+                if items['meta']['next']:
+                    params['page'] = int(items['meta']['page']) + 1
+                    url_next = _URL + '?' + urlencode(params)
+                    if term:
+                        url_next += '&term=' + term
+                    list_item = setInfoFolder(url_next, "Next")
+                    listing.append((url_next, list_item, True))
         return listing
 
     @staticmethod

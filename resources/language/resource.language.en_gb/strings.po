@@ -61,9 +61,29 @@ msgid "Logged in successfully"
 msgstr ""
 
 msgctxt "#50011"
-msgid "Catalog"
+msgid "You need to be suscribed to this channel"
 msgstr ""
 
 msgctxt "#50012"
 msgid "Search"
+msgstr ""
+
+msgctxt "#50013"
+msgid "Channel"
+msgstr ""
+
+msgctxt "#50014"
+msgid "Trending"
+msgstr ""
+
+msgctxt "#50015"
+msgid "Latest"
+msgstr ""
+
+msgctxt "#50016"
+msgid "Following"
+msgstr ""
+
+msgctxt "#50017"
+msgid "Recommended"
 msgstr ""

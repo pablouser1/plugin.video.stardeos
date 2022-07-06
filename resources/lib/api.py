@@ -22,10 +22,16 @@ class Api:
         })
 
     def makeRequest(self, endpoint: str, method = 'GET', body: dict = {}, query: dict = {}, headers: dict = {}):
+        error = ''
         res = self.s.request(method, self.BASE_URL + endpoint, json=body, params=query, headers=headers)
-        if res.ok and res.headers['Content-Type'] == 'application/json; charset=utf-8':
+        if res.ok and res.headers.get('Content-Type', '') == 'application/json; charset=utf-8':
             return res.json()
-        raise ApiException('Api error')
+        elif res.status_code == 403 and res.headers.get('Content-Type', '') == 'text/html; charset=UTF-8':
+            error = 'Captcha detectado'
+        else:
+            error = 'Error desconocido'
+
+        raise ApiException(error)
 
     def login(self, username: str, password: str)-> dict:
         res = self.makeRequest('/auth/login', 'POST', {
@@ -40,21 +46,40 @@ class Api:
     def setToken(self, token: str):
         self.s.headers["Authorization"] = f'Bearer {token}'
 
-    def getUserAgent(self):
+    def getUserAgent(self) -> str:
         return self.s.headers['User-Agent']
 
-    def catalog(self):
+    def videos(self, sort: str, userId: str = None, page: int = 1) -> dict:
         res = self.makeRequest('/videos', query={
-            'filter': 'LATEST'
+            'filter': sort,
+            'page': page
         }, headers={
             'Referer': 'https://stardeos.com'
         })
         return res
 
-    def search(self, term: str) -> dict:
+    def following(self, user_id: str, page: int = 1) -> dict:
+        res = self.makeRequest('/videos', query={
+            'filter': "FOLLOWING",
+            "userId": user_id,
+            'page': page
+        }, headers={
+            'Referer': 'https://stardeos.com'
+        })
+        return res
+
+    def channel(self, username: str, page: int = 1) -> dict:
+        res = self.makeRequest('/channels/' + username + '/videos', query={
+            'page': page
+        }, headers={
+            'Referer': 'https://stardeos.com/' + username
+        })
+        return res
+
+    def search(self, term: str, page: int = 1) -> dict:
         res = self.makeRequest('/videos/browse', query={
             'q': term,
-            'page': 1
+            'page': page
         }, headers={
             "Referer": "https://stardeos.com/?q=" + term
         })

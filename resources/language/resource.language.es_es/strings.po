@@ -61,9 +61,29 @@ msgid "Logged in successfully"
 msgstr "Sesión iniciada con éxito"
 
 msgctxt "#50011"
-msgid "Catalog"
-msgstr "Catálogo"
+msgid "Tienes que estar suscrito al canal"
+msgstr ""
 
 msgctxt "#50012"
 msgid "Search"
 msgstr "Buscar"
+
+msgctxt "#50013"
+msgid "Channel"
+msgstr "Canal"
+
+msgctxt "#50014"
+msgid "Trending"
+msgstr "Tendencias"
+
+msgctxt "#50015"
+msgid "Latest"
+msgstr "Recientes"
+
+msgctxt "#50016"
+msgid "Following"
+msgstr "Siguiendo"
+
+msgctxt "#50017"
+msgid "Recommended"
+msgstr "Recomendados"

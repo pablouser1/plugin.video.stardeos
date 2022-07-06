@@ -5,20 +5,17 @@ class Base:
     Main view class, skeleton for all views
     """
 
-    """
-    Path for Kodi to search
-    """
-    path = ''
+    term = ''
 
     """
-    Path that kodi will assign to all folder items
+    Set to True if the endpoint has a pagination system
     """
-    folders_goTo = ''
+    pagination = False
 
     """
-    Set to True if the endpoint has a pagination system TODO, make it work
+    Current page
     """
-    pages = False
+    page = 1
 
     """
     True if is an static menu with predefined items
@@ -26,19 +23,16 @@ class Base:
     static = False
 
     """
-    True if the directory contains videos
-    """
-    has_videos = False
-
-    """
-    True if the directory is recursive, False if the directory only has videos
-    """
-    has_dirs = False
-
-    """
     All items
     """
     items = []
+
+    def __init__(self, page = 1, term = ''):
+        if self.pagination:
+            self.page = page
+
+        if term:
+            self.term = term
 
     def setItems(self):
         """
@@ -55,15 +49,7 @@ class Base:
         if self.static:
             listing = Render.static(self.items)
         else:
-            # Has both videos and dirs
-            if self.has_dirs and self.has_videos:
-                listing = Render.mix(self.items, self.folders_goTo)
-            # Only has dirs
-            elif self.has_dirs and not self.has_videos:
-                listing = Render.folders(self.items, self.folders_goTo)
-            # Only has videos
-            elif self.has_videos and not self.has_dirs:
-                listing = Render.videos(self.items)
+            listing = Render.videos(self.items, self.pagination, self.term)
 
         Render.createDirectory(listing)
 
