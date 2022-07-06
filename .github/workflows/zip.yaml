@@ -1,0 +1,34 @@
+name: Create ZIP
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Get XML
+        id: getxml
+        uses: howbout-ltd/get-xml-info@master
+        with:
+          xml-file: "addon.xml"
+          xpath: "//addon/@version"
+      - name: Archive Release
+        uses: thedoctor0/zip-release@master
+        with:
+          type: 'zip'
+          path: 'plugin.video.stardeos'
+          directory: '..'
+          filename: 'stardeos-kodi-release.zip'
+          exclusions: '*.git* .editorconfig'
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "../stardeos-kodi-release.zip"
+          artifactContentType: application/zip
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: v${{ steps.getxml.outputs.info }}
+          allowUpdates: true

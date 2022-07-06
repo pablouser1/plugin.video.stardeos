@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.stardeos" name="Stardeos" version="1.0.0" provider-name="pablouser1">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0" />
+    <import addon="script.module.requests" version="2.22.0+matrix.1" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="addon.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Use Stardeos on Kodi</summary>
+    <description lang="en_GB">NON-OFFICIAL client for watching content of Stardeos</description>
+    <summary lang="es_ES">Utiliza Stardeos en Kodi</summary>
+    <description lang="es_ES">Cliente NO OFICIAL para visualizar contenido de Stardeos</description>
+    <language>es</language>
+    <platform>all</platform>
+    <license>GPL-3.0-or-later</license>
+    <website>https://github.com/pablouser1/plugin.video.stardeos</website>
+    <source>https://github.com/pablouser1/plugin.video.stardeos</source>
+    <assets>
+      <icon>resources/icon.jpg</icon>
+      <fanart>resources/fanart.jpg</fanart>
+    </assets>
+  </extension>
+</addon>
