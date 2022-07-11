@@ -7,18 +7,19 @@ def getArt(item: list):
         "thumb": item["thumbnail"]
     }
 
-def calcRating(likes: int, dislikes: int, views: int) -> int:
-    return int((likes - dislikes) / views * 10)
+def calcRating(likes: int, views: int) -> int:
+    return likes / views * 10
 
 def setInfoVideo(url: str, item: dict)-> ListItem:
     list_item = ListItem(item['title'], path=url)
-    rating = calcRating(item['likeCount'], item['dislikeCount'], item['views'])
+    rating = calcRating(item['likeCount'], item['views'])
     info = {
         "title": item["title"],
         "plot": item["description"],
         "duration": item["duration"],
+        "director": item["creator"]["username"],
         "rating": rating,
-        "userrating": rating
+        "userrating": round(rating)
     }
     # ART
     list_item.setArt(getArt(item))

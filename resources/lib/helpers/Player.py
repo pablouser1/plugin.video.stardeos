@@ -1,6 +1,5 @@
-from xbmcgui import Dialog, ListItem
 from xbmcplugin import setResolvedUrl
-from ..common import api, config, _HANDLE
+from ..common import api, _HANDLE
 from ..helpers.listitem import setInfoVideo
 
 class Play():
