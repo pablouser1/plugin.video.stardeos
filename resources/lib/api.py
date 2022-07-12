@@ -5,9 +5,9 @@ class Api:
     BASE_URL = "https://stardeos.com/api/v2"
     s = requests.Session()
 
-    def __init__(self):
+    def __init__(self, version: str):
         self.s.headers.update({
-            'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36",
+            "User-Agent": f"Stardeos-For-Kodi/{version} (https://github.com/pablouser1/plugin.video.stardeos)",
             "Accept": "*/*",
             "Accept-Language": "es-ES",
             "Accept-Encoding": "gzip, deflate, br",

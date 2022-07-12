@@ -19,6 +19,9 @@ class Config:
     def getUserId(self)-> str:
         return self.addon.getSettingString('user_id')
 
+    def getVersion(self) -> str:
+        return self.addon.getAddonInfo('version')
+
     def setAuth(self, access_token: str, username: str, user_id: str):
         self.addon.setSettingString('access_token', access_token)
         self.addon.setSettingString('username', username)
