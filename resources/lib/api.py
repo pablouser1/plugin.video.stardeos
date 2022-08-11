@@ -44,7 +44,7 @@ class Api:
         })
         return res
 
-    def videos(self, sort: str, userId: str = None, page: int = 1) -> dict:
+    def videos(self, sort: str, userId: str = '', page: int = 1) -> dict:
         res = self.makeRequest('/videos', query={
             'filter': sort,
             'userId': userId,

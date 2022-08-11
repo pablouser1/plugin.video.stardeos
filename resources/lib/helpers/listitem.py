@@ -12,15 +12,18 @@ def calcRating(likes: int, views: int) -> int:
 
 def setInfoVideo(url: str, item: dict)-> ListItem:
     list_item = ListItem(item['title'], path=url)
-    rating = calcRating(item['likeCount'], item['views'])
     info = {
         "title": item["title"],
         "plot": item["description"],
         "duration": item["duration"],
         "director": item["creator"]["username"],
-        "rating": rating,
-        "userrating": round(rating)
     }
+
+    # Agregar ratings si el vídeo tiene visitas
+    if item['views'] > 0:
+        rating = calcRating(item['likeCount'], item['views'])
+        info["rating"] = rating
+        info["userrating"] = round(rating)
     # ART
     list_item.setArt(getArt(item))
     list_item.setInfo('video', info)
